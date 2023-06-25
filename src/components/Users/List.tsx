@@ -27,7 +27,10 @@ export const UsersList = ({
       setFoundUsers(users)
     } else {
       const filteredUsers = users.filter(user =>
-        user.email.toLowerCase().includes(debouncedSearch.toLowerCase()),
+        user.email
+          .split('@')[0]
+          .toLowerCase()
+          .includes(debouncedSearch.toLowerCase()),
       )
       setFoundUsers(filteredUsers)
     }
