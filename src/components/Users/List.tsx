@@ -55,7 +55,7 @@ export const UsersList = ({
         </button>
       </div>
       <div>
-        {!foundUsers ? (
+        {foundUsers.length === 0 ? (
           <p>Ничего не найдено</p>
         ) : (
           foundUsers.map(user => (
