@@ -1,7 +1,7 @@
 import { Menu } from '@headlessui/react'
 import { FormEvent, useState } from 'react'
 import { toast } from 'react-toastify'
-import { getPermissions } from '../../helpers/utils'
+import { getPermissions, isEmailValid } from '../../helpers/utils'
 import { User } from '../../interfaces'
 import { permissionsList } from '../../static'
 import { Dropdown } from '../UI/Dropdown'
@@ -21,6 +21,10 @@ export const Add = ({ onAddUser, onClose, isOpen, users }: Props) => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    if (!isEmailValid(email)) {
+      toast.warn('Некорректный email')
+      return
+    }
     if (users.find(filteringUser => filteringUser.email === email)) {
       toast.warn('Такой пользователь уже существует')
       return

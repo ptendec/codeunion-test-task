@@ -26,3 +26,8 @@ export const getPermissions = (prevPermissions: string[], chosen: ListItem) => {
   const isAll = prevPermissions.length + 2 === permissionsList.length
   return [...(isAll ? ['Все'] : []), ...prevPermissions, chosen.value]
 }
+
+export const isEmailValid = (email: string) => {
+  const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/
+  return emailRegex.test(email)
+}

@@ -58,7 +58,7 @@ export const UsersList = ({
               />
               <div>
                 <div className='flex gap-x-2 mb-2 items-center'>
-                  <p>{user.name}</p>
+                  <p>{user.name || 'Пользователь'}</p>
                   <p className='text-gray-500 text-sm font-semibold'>
                     {user.email}
                   </p>
