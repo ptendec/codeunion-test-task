@@ -34,8 +34,6 @@ export const Edit = ({ user, onUpdateUser, onClose, isOpen }: Props) => {
     onClose()
   }
 
-  if (!isOpen) return <></>
-
   return (
     <Modal
       className='max-w-lg p-4 rounded-xl'
@@ -43,24 +41,6 @@ export const Edit = ({ user, onUpdateUser, onClose, isOpen }: Props) => {
       onClose={onClose}
     >
       <form onSubmit={handleSubmit}>
-        <div className='mb-4'>
-          <input
-            type='text'
-            value={name}
-            onChange={e => setName(e.target.value)}
-            placeholder='Name'
-            className='w-full p-2 border rounded'
-          />
-        </div>
-        <div className='mb-4'>
-          <input
-            type='email'
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            placeholder='Email'
-            className='w-full p-2 border rounded'
-          />
-        </div>
         <Dropdown
           button={
             <Menu.Button
