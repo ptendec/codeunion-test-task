@@ -21,7 +21,6 @@ export const Add = ({ onAddUser, onClose, isOpen, users }: Props) => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
     if (users.find(filteringUser => filteringUser.email === email)) {
       toast.warn('Такой пользователь уже существует')
       return
@@ -30,7 +29,7 @@ export const Add = ({ onAddUser, onClose, isOpen, users }: Props) => {
     onAddUser({
       name,
       email,
-      permissions,
+      permissions: permissions.filter(permission => permission !== 'Все'),
     })
     setName('')
     setEmail('')

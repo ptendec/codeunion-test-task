@@ -28,7 +28,7 @@ export const Edit = ({ user, onUpdateUser, onClose, isOpen }: Props) => {
     onUpdateUser({
       ...user,
       name,
-      permissions,
+      permissions: permissions.filter(permission => permission !== 'Все'),
     })
     toast.success('Отредактировано')
     onClose()
