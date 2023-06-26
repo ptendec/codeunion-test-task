@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import './App.css'
 import { Add } from './components/Users/Add'
 import { Edit } from './components/Users/Edit'
@@ -28,27 +30,32 @@ function App() {
   }
 
   return (
-    <div className='max-w-[1200px] mx-auto '>
-      <Add
-        isOpen={isAdd}
-        onAddUser={handleAddUser}
-        onClose={() => setIsAdd(false)}
-      />
-      {editingUser && (
-        <Edit
-          user={editingUser}
-          onUpdateUser={handleUpdateUser}
-          onClose={() => setEditingUser(undefined)}
-          isOpen={!!editingUser}
+    <>
+      <ToastContainer />
+      <div className='max-w-[1200px] mx-auto '>
+        <Add
+          users={users}
+          isOpen={isAdd}
+          onAddUser={handleAddUser}
+          onClose={() => setIsAdd(false)}
         />
-      )}
-      <UsersList
-        showAddModal={() => setIsAdd(true)}
-        showEditModal={user => setEditingUser(user)}
-        users={users}
-        onDeleteUser={handleDeleteUser}
-      />
-    </div>
+        {editingUser && (
+          <Edit
+            users={users}
+            user={editingUser}
+            onUpdateUser={handleUpdateUser}
+            onClose={() => setEditingUser(undefined)}
+            isOpen={!!editingUser}
+          />
+        )}
+        <UsersList
+          showAddModal={() => setIsAdd(true)}
+          showEditModal={user => setEditingUser(user)}
+          users={users}
+          onDeleteUser={handleDeleteUser}
+        />
+      </div>
+    </>
   )
 }
 
