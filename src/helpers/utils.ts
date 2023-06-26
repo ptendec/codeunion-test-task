@@ -6,10 +6,7 @@ export const doSearch = (search: string, users: User[]) => {
     return users
   } else {
     const filteredUsers = users.filter(user =>
-      user.email
-        .split('@')[0]
-        .toLowerCase()
-        .includes(search.trim().toLowerCase().split('@')[0]),
+      user.email.toLowerCase().includes(search.trim().toLowerCase()),
     )
     return filteredUsers
   }
@@ -25,5 +22,5 @@ export const getPermissions = (prevPermissions: string[], chosen: ListItem) => {
       prevPermission =>
         prevPermission !== chosen.value && prevPermission !== 'Все',
     )
-  else return [...prevPermissions, chosen.value]
+  return [...prevPermissions, chosen.value]
 }
