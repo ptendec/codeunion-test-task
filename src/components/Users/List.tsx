@@ -23,14 +23,14 @@ export const UsersList = ({
   const debouncedSearch = useDebounce<string>(search, 200)
 
   useEffect(() => {
-    if (!debouncedSearch) {
+    if (!debouncedSearch.trim()) {
       setFoundUsers(users)
     } else {
       const filteredUsers = users.filter(user =>
         user.email
           .split('@')[0]
           .toLowerCase()
-          .includes(debouncedSearch.toLowerCase()),
+          .includes(debouncedSearch.trim().toLowerCase().split('@')[0]),
       )
       setFoundUsers(filteredUsers)
     }
