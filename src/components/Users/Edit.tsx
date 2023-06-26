@@ -1,5 +1,6 @@
 import { Menu } from '@headlessui/react'
 import React, { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import { getPermissions } from '../../helpers/utils'
 import { User } from '../../interfaces'
 import { permissionsList } from '../../static'
@@ -8,19 +9,18 @@ import { Modal } from '../UI/Modal'
 
 interface Props {
   user: User
+  users: User[]
   onUpdateUser: (user: User) => void
   onClose: () => void
   isOpen: boolean
 }
 
-export const Edit = ({ user, onUpdateUser, onClose, isOpen }: Props) => {
+export const Edit = ({ user, onUpdateUser, onClose, isOpen, users }: Props) => {
   const [name, setName] = useState(user.name)
-  const [email, setEmail] = useState(user.email)
   const [permissions, setPermissions] = useState<string[]>([])
 
   useEffect(() => {
     setName(user.name)
-    setEmail(user.email)
     setPermissions(user.permissions)
   }, [user])
 
@@ -29,9 +29,9 @@ export const Edit = ({ user, onUpdateUser, onClose, isOpen }: Props) => {
     onUpdateUser({
       ...user,
       name,
-      email,
       permissions,
     })
+    toast.success('Отредактировано')
     onClose()
   }
 
@@ -64,11 +64,11 @@ export const Edit = ({ user, onUpdateUser, onClose, isOpen }: Props) => {
                   type='checkbox'
                   className='w-3.5 h-3.5'
                   checked={permissions.includes(item.value)}
-                  onChange={() => {
+                  onChange={() =>
                     setPermissions(prevPermissions =>
                       getPermissions(prevPermissions, item),
                     )
-                  }}
+                  }
                 />
                 {item.value}
               </label>

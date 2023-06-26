@@ -1,8 +1,8 @@
-import { FormEvent, useState } from 'react'
-import { User } from '../../interfaces'
-
 import { Menu } from '@headlessui/react'
+import { FormEvent, useState } from 'react'
+import { toast } from 'react-toastify'
 import { getPermissions } from '../../helpers/utils'
+import { User } from '../../interfaces'
 import { permissionsList } from '../../static'
 import { Dropdown } from '../UI/Dropdown'
 import { Modal } from '../UI/Modal'
@@ -11,14 +11,20 @@ interface Props {
   onClose: () => void
   onAddUser: (user: User) => void
   isOpen: boolean
+  users: User[]
 }
 
-export const Add = ({ onAddUser, onClose, isOpen }: Props) => {
+export const Add = ({ onAddUser, onClose, isOpen, users }: Props) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [permissions, setPermissions] = useState<string[]>([])
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    if (users.find(filteringUser => filteringUser.email === email)) {
+      toast.warn('Такой пользователь уже существует')
+      return
+    }
+
     event.preventDefault()
     onAddUser({
       name,
@@ -29,6 +35,7 @@ export const Add = ({ onAddUser, onClose, isOpen }: Props) => {
     setEmail('')
     setPermissions([])
     onClose()
+    toast.success('Приглашение отправлено')
   }
 
   return (
@@ -69,11 +76,11 @@ export const Add = ({ onAddUser, onClose, isOpen }: Props) => {
                   type='checkbox'
                   className='w-3.5 h-3.5'
                   checked={permissions.includes(item.value)}
-                  onChange={() => {
+                  onChange={() =>
                     setPermissions(prevPermissions =>
                       getPermissions(prevPermissions, item),
                     )
-                  }}
+                  }
                 />
                 {item.value}
               </label>
