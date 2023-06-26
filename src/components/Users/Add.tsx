@@ -20,12 +20,13 @@ export const Add = ({ onAddUser, onClose, isOpen, users }: Props) => {
   const [permissions, setPermissions] = useState<string[]>([])
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
     if (users.find(filteringUser => filteringUser.email === email)) {
       toast.warn('Такой пользователь уже существует')
       return
     }
 
-    event.preventDefault()
     onAddUser({
       name,
       email,
