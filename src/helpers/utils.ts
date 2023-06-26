@@ -22,5 +22,7 @@ export const getPermissions = (prevPermissions: string[], chosen: ListItem) => {
       prevPermission =>
         prevPermission !== chosen.value && prevPermission !== 'Все',
     )
-  return [...prevPermissions, chosen.value]
+
+  const isAll = prevPermissions.length + 2 === permissionsList.length
+  return [...(isAll ? ['Все'] : []), ...prevPermissions, chosen.value]
 }
