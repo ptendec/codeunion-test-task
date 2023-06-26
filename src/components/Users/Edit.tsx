@@ -9,13 +9,12 @@ import { Modal } from '../UI/Modal'
 
 interface Props {
   user: User
-  users: User[]
   onUpdateUser: (user: User) => void
   onClose: () => void
   isOpen: boolean
 }
 
-export const Edit = ({ user, onUpdateUser, onClose, isOpen, users }: Props) => {
+export const Edit = ({ user, onUpdateUser, onClose, isOpen }: Props) => {
   const [name, setName] = useState(user.name)
   const [permissions, setPermissions] = useState<string[]>([])
 

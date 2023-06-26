@@ -41,7 +41,6 @@ function App() {
         />
         {editingUser && (
           <Edit
-            users={users}
             user={editingUser}
             onUpdateUser={handleUpdateUser}
             onClose={() => setEditingUser(undefined)}
