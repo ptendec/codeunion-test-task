@@ -20,7 +20,12 @@ export const Edit = ({ user, onUpdateUser, onClose, isOpen }: Props) => {
 
   useEffect(() => {
     setName(user.name)
-    setPermissions(user.permissions)
+    setPermissions([
+      ...(user.permissions.length === permissionsList.length - 1
+        ? ['Все']
+        : []),
+      ...user.permissions,
+    ])
   }, [user])
 
   const handleSubmit = (event: React.FormEvent) => {
