@@ -25,4 +25,12 @@ export const permissionsList = [
     id: uuid(),
     value: 'Обращение клиентов',
   },
+  {
+    id: uuid(),
+    value: 'Блог',
+  },
+  {
+    id: uuid(),
+    value: 'Тех. поддержка',
+  },
 ]
