@@ -2,7 +2,8 @@ import { FormEvent, useState } from 'react'
 import { User } from '../../interfaces'
 
 import { Menu } from '@headlessui/react'
-import { permissionsList } from '../../statis'
+import { getPermissions } from '../../helpers/utils'
+import { permissionsList } from '../../static'
 import { Dropdown } from '../UI/Dropdown'
 import { Modal } from '../UI/Modal'
 
@@ -69,25 +70,11 @@ export const Add = ({ onAddUser, onClose, isOpen }: Props) => {
                   className='w-3.5 h-3.5'
                   checked={permissions.includes(item.value)}
                   onChange={() => {
-                    if (item.value === 'Все')
-                      setPermissions(
-                        permissions.includes('Все')
-                          ? []
-                          : permissionsList.map(permission => permission.value),
-                      )
-                    else if (permissions.includes(item.value))
-                      setPermissions(prevPermissions =>
-                        prevPermissions.filter(
-                          prevPermission => prevPermission !== item.value,
-                        ),
-                      )
-                    else
-                      setPermissions(prevPermissions => [
-                        ...prevPermissions,
-                        item.value,
-                      ])
+                    setPermissions(prevPermissions =>
+                      getPermissions(prevPermissions, item),
+                    )
                   }}
-                />{' '}
+                />
                 {item.value}
               </label>
             ))}

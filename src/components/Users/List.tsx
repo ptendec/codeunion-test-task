@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import noAvatar from '../../assets/no_avatar.png'
+import { doSearch } from '../../helpers/utils'
 import { useDebounce } from '../../hooks/useDebounce'
 import { User } from '../../interfaces'
 import { UserDropdown } from './Dropdown'
@@ -23,17 +24,7 @@ export const UsersList = ({
   const debouncedSearch = useDebounce<string>(search, 200)
 
   useEffect(() => {
-    if (!debouncedSearch.trim()) {
-      setFoundUsers(users)
-    } else {
-      const filteredUsers = users.filter(user =>
-        user.email
-          .split('@')[0]
-          .toLowerCase()
-          .includes(debouncedSearch.trim().toLowerCase().split('@')[0]),
-      )
-      setFoundUsers(filteredUsers)
-    }
+    setFoundUsers(doSearch(debouncedSearch, users))
   }, [debouncedSearch, users])
 
   return (
