@@ -20,7 +20,7 @@ export const UsersList = ({
   const [search, setSearch] = useState('')
   const [foundUsers, setFoundUsers] = useState<User[]>(users)
 
-  const debouncedSearch = useDebounce<string>(search, 500)
+  const debouncedSearch = useDebounce<string>(search, 200)
 
   useEffect(() => {
     if (!debouncedSearch) {
